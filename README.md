@@ -1,5 +1,7 @@
 # ts-electron
 
+[![CircleCI](https://circleci.com/gh/kigh-ota/ts-electron.svg?style=svg)](https://circleci.com/gh/kigh-ota/ts-electron)
+
 ## Requirements
 
 - VSCode
