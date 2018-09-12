@@ -1,0 +1,56 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8-browsers
+    working_directory: ~/ts-electron
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: sudo npm install -g npm@latest
+      - run:
+          name: npm-install
+          command: npm ci
+      - run:
+          name: build
+          command: npm run build
+      - run:
+          name: test
+          command: MOCHA_FILE="junit/test-results.xml" npm run test
+      - store_test_results:
+          path: ~/ts-electron/junit
+      - store_artifacts:
+          path: ~/ts-electron/junit
+  package:
+    docker:
+      - image: circleci/node:8-browsers
+    working_directory: ~/ts-electron
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: sudo npm install -g npm@latest
+      - run:
+          name: npm-install
+          command: npm ci
+      - run:
+          name: install-required-packages
+          command: sudo apt -y install icnsutils graphicsmagick
+      - run:
+          name: package
+          command: npm run package
+      - store_artifacts:
+          path: ~/ts-electron/dist
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - test
+      - package:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
