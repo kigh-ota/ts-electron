@@ -35,4 +35,3 @@
 - Debugging
 - Sample Repository
 - Production Mode
-- Test using Spectron
