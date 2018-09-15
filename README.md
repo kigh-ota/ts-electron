@@ -33,5 +33,4 @@
 ## TODO
 
 - Debugging
-- Sample Repository
 - Production Mode

@@ -13,6 +13,12 @@ jobs:
           name: npm-install
           command: npm ci
       - run:
+          name: install-required-packages
+          command: sudo apt -y install icnsutils graphicsmagick
+      - run:
+          name: electron-rebuild
+          command: npm run electron-rebuild
+      - run:
           name: build
           command: npm run build
       - run:

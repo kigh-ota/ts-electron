@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class Title extends React.Component {
-    render() {
+    public render() {
         return (<h1>Hello</h1>);
     }
 }

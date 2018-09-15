@@ -3,7 +3,9 @@ import electronPath from 'electron';
 import path from 'path';
 import {Application} from 'spectron';
 
-describe('Application launch', () => {
+describe('Application launch', function() {
+    this.timeout(10000);
+
     let app: Application;
 
     beforeEach(() => {

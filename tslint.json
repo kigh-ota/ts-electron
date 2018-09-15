@@ -11,7 +11,8 @@
             "jsx-double"
         ],
         "object-literal-sort-keys": false,
-        "member-access": false
+        "interface-name": false,
+        "member-ordering": false
     },
     "rulesDirectory": []
 }
