@@ -36,4 +36,3 @@
 - Sample Repository
 - Production Mode
 - Test using Spectron
-- Circle CI
