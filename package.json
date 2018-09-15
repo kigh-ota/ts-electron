@@ -7,8 +7,10 @@
     "build": "webpack",
     "start": "electron ./app",
     "lint:fix": "tslint --fix ./**/*.ts ./**/*.tsx",
-    "test": "rm -rf app/generated/ && tsc && mocha './app/generated/**/*_spec.js'",
-    "test:ci": "rm -rf app/generated/ && tsc && mocha --reporter mocha-junit-reporter './app/generated/**/*_spec.js'",
+    "test:unit": "tsc && mocha './app/generated/main/**/*_spec.js' --exclude './app/generated/integration_test/**/*_spec.js'",
+    "test:unit:ci": "tsc && mocha --reporter mocha-junit-reporter './app/generated/main/**/*_spec.js' --exclude './app/generated/integration_test/**/*_spec.js'",
+    "test:integration": "npm run build && tsc && mocha './app/generated/integration_test/**/*_spec.js'",
+    "test:integration:ci": "tsc && mocha --reporter mocha-junit-reporter './app/generated/integration_test/**/*_spec.js'",
     "package": "npm install && npm run electron-rebuild && npm run build && build"
   },
   "build": {

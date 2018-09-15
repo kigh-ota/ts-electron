@@ -1,5 +1,3 @@
-console.log('module', module);
-
 import assert from 'assert';
 import fs from 'fs';
 import os from 'os';

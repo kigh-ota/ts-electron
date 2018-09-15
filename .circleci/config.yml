@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build-and-unit-test:
     docker:
       - image: circleci/node:8-browsers
     working_directory: ~/ts-electron
@@ -19,13 +19,13 @@ jobs:
           name: build
           command: npm run build
       - run:
-          name: test
-          command: MOCHA_FILE="junit/test-results.xml" npm run test:ci
+          name: unit-test
+          command: MOCHA_FILE="junit/unit-test-results.xml" npm run test:unit:ci
       - store_test_results:
           path: ~/ts-electron/junit
       - store_artifacts:
           path: ~/ts-electron/junit
-  package:
+  package-and-integration-test:
     docker:
       - image: circleci/node:8-browsers
     working_directory: ~/ts-electron
@@ -43,6 +43,13 @@ jobs:
       - run:
           name: package
           command: npm run package
+      - run:
+          name: integration-test
+          command: MOCHA_FILE="junit/integration-test-results.xml" npm run test:integration:ci
+      - store_test_results:
+          path: ~/ts-electron/junit
+      - store_artifacts:
+          path: ~/ts-electron/junit
       - store_artifacts:
           path: ~/ts-electron/dist
 
@@ -50,10 +57,10 @@ workflows:
   version: 2
   workflow:
     jobs:
-      - test
-      - package:
+      - build-and-unit-test
+      - package-and-integration-test:
           requires:
-            - test
+            - build-and-unit-test
           filters:
             branches:
               only: master
