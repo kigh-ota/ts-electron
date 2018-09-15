@@ -7,8 +7,8 @@
     "build": "webpack",
     "start": "electron ./app",
     "lint:fix": "tslint --fix ./**/*.ts ./**/*.tsx",
-    "test": "tsc && mocha './app/generated/**/*_spec.js'",
-    "test:ci": "tsc && mocha --reporter mocha-junit-reporter './app/generated/**/*_spec.js'",
+    "test": "rm -rf app/generated/ && tsc && mocha './app/generated/**/*_spec.js'",
+    "test:ci": "rm -rf app/generated/ && tsc && mocha --reporter mocha-junit-reporter './app/generated/**/*_spec.js'",
     "package": "npm install && npm run electron-rebuild && npm run build && build"
   },
   "build": {

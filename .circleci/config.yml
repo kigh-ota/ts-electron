@@ -13,11 +13,8 @@ jobs:
           name: npm-install
           command: npm ci
       - run:
-          name: install-required-packages
-          command: sudo apt -y install icnsutils graphicsmagick
-      - run:
-          name: electron-rebuild
-          command: npm run electron-rebuild
+          name: build-sqlite3
+          command: cd app && npm install sqlite3 --build-from-source
       - run:
           name: build
           command: npm run build
