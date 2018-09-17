@@ -22,6 +22,7 @@
 - src/
     - main/**/*.tsx? (including tests) [M]
     - renderer/**/*.tsx? (including tests) [R]
+    - integration_test/**/*.ts
 - app/
     - generated/
         - main.js [M]
