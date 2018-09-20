@@ -5,6 +5,6 @@ import Title from './Title';
 const container = document.getElementById('contents');
 
 ReactDom.render(
-    <Title/>,
+    <Title title="ts-electron" />,
     container,
 );
