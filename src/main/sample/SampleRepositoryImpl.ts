@@ -1,7 +1,7 @@
 import {Database} from 'sqlite3';
+import uuidv4 from 'uuid/v4';
 import Sample, { SampleId, SampleValue } from './Sample';
 import SampleRepository from './SampleRepository';
-import uuidv4 from 'uuid/v4';
 
 const TABLE = 'sample';
 const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${TABLE} (id VARCHAR(36) PRIMARY KEY, value INTEGER)`;
@@ -30,7 +30,8 @@ export default class SampleRepositoryImpl implements SampleRepository {
     public async add(value: SampleValue): Promise<Sample> {
         const sample = new Sample(uuidv4(), value);
         await new Promise((resolve, reject) => {
-            this.db.run(`INSERT INTO ${TABLE} (id, value) VALUES ('${sample.getId()}', ${sample.getValue()})`, (err) => {
+            this.db.run(`INSERT INTO ${TABLE} (id, value) VALUES ('${sample.getId()}', ${sample.getValue()})`,
+            (err) => {
                 if (err) {
                     reject(err);
                     return;
@@ -55,12 +56,12 @@ export default class SampleRepositoryImpl implements SampleRepository {
                 resolve(new Sample(row.id, row.value));
             });
         });
-        return ((sample as any) as Sample); 
+        return ((sample as any) as Sample);
     }
 
     public async remove(id: SampleId): Promise<void> {
         await new Promise((resolve, reject) => {
-            this.db.get(`DELETE FROM ${TABLE} WHERE id = '${id}'`, err => {
+            this.db.get(`DELETE FROM ${TABLE} WHERE id = '${id}'`, (err) => {
                 if (err) {
                     reject(err);
                     return;

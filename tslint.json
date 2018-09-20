@@ -1,8 +1,6 @@
 {
     "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
+    "extends": "tslint:recommended",
     "jsRules": {},
     "rules": {
         "quotemark": [
@@ -12,7 +10,8 @@
         ],
         "object-literal-sort-keys": false,
         "interface-name": false,
-        "member-ordering": false
+        "member-ordering": false,
+        "no-bitwise": false
     },
     "rulesDirectory": []
 }

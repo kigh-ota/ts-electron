@@ -5,14 +5,6 @@ const TS_MODULE = {
     rules: [{
         test: /\.tsx?$/,
         use: 'ts-loader'
-    }, {
-        test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-        options: {
-            configFile: './tslint.json',
-            typeCheck: true,
-        },
     }],
 };
 

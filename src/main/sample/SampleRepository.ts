@@ -1,4 +1,4 @@
-import Sample, { SampleId, SampleValue } from "./Sample";
+import Sample, { SampleId, SampleValue } from './Sample';
 
 export default interface SampleRepository {
     add(value: SampleValue): Promise<Sample>;

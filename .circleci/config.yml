@@ -13,6 +13,9 @@ jobs:
           name: npm-install
           command: npm ci
       - run:
+          name: tslint
+          command: npm run tslint
+      - run:
           name: build-sqlite3
           command: cd app && npm install sqlite3 --build-from-source
       - run:
