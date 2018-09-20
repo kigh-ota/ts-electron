@@ -1,7 +1,11 @@
 import React from 'react';
 
-export default class Title extends React.Component {
+interface PropsType {
+    title: string;
+}
+
+export default class Title extends React.Component<PropsType, {}> {
     public render() {
-        return (<h1>Hello</h1>);
+        return (<h1>{this.props.title}</h1>);
     }
 }
