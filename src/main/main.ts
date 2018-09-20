@@ -1,4 +1,5 @@
-import {app, BrowserWindow} from 'electron';
+import {app, BrowserWindow, ipcMain} from 'electron';
+import IpcController from './IpcController';
 
 let win: BrowserWindow | null;
 
@@ -29,3 +30,5 @@ app.on('activate', () => {
         createWindow();
     }
 });
+
+ipcMain.on('buttonChannel', IpcController.button);
