@@ -7,19 +7,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: update-npm
+          name: Update npm
           command: sudo npm install -g npm@latest
       - run:
-          name: npm-install
+          name: Install npm packages
           command: npm ci
       - run:
-          name: tslint
+          name: Check code (tslint)
           command: npm run tslint
       - run:
-          name: build
+          name: Check build is successful
           command: npm run build
       - run:
-          name: unit-test
+          name: Run unit tests
           command: MOCHA_FILE="junit/unit-test-results.xml" npm run test:unit:ci
       - store_test_results:
           path: ~/ts-electron/junit
@@ -32,19 +32,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: update-npm
+          name: Update npm
           command: sudo npm install -g npm@latest
       - run:
-          name: npm-install
+          name: Install npm packages
           command: npm ci
       - run:
-          name: install-required-packages
+          name: Install apt packages
           command: sudo apt -y install icnsutils graphicsmagick
       - run:
-          name: package
+          name: Package app
           command: npm run package
       - run:
-          name: integration-test
+          name: Run integration tests
           command: MOCHA_FILE="junit/integration-test-results.xml" npm run test:integration:ci
       - store_test_results:
           path: ~/ts-electron/junit
