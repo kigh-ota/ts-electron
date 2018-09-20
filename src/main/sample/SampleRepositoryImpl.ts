@@ -1,3 +1,4 @@
+import log from 'electron-log';
 import {Database} from 'sqlite3';
 import uuidv4 from 'uuid/v4';
 import Sample, { SampleId, SampleValue } from './Sample';
@@ -14,14 +15,14 @@ export default class SampleRepositoryImpl implements SampleRepository {
     }
 
     public async init(): Promise<void> {
-        console.log(`SampleRepositoryImpl#init()`);
+        log.info(`SampleRepositoryImpl#init()`);
         await new Promise((resolve, reject) => {
             this.db.run(CREATE_TABLE, (err) => {
                 if (err) {
                     reject(err);
                     return;
                 }
-                console.log(`Created table ${TABLE}`);
+                log.info(`Created table ${TABLE}`);
                 resolve();
             });
         });

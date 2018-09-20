@@ -3,8 +3,6 @@ import electronPath from 'electron';
 import path from 'path';
 import {Application} from 'spectron';
 
-console.log(electronPath);
-
 describe('Application launch', function() {
     this.timeout(10000);
 
@@ -13,7 +11,7 @@ describe('Application launch', function() {
     beforeEach(() => {
         app = new Application({
             path: ((electronPath as any) as string),
-            args: [path.join(__dirname, '../..')],
+            args: [path.join(__dirname, '../../app')],
         });
         return app.start();
     });

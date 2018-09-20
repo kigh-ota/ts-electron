@@ -1,4 +1,5 @@
 import assert from 'assert';
+import log from 'electron-log';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -13,7 +14,7 @@ describe('SampleRepositoryImpl', () => {
         if (fs.existsSync(dbPath)) {
             fs.unlinkSync(dbPath);
         }
-        console.log(`dbPath=${dbPath}`);
+        log.info(`dbPath=${dbPath}`);
         return new Database(dbPath, OPEN_READWRITE | OPEN_CREATE);
     }
 
