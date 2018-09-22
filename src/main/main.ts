@@ -1,7 +1,37 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
+import path from 'path';
 import IpcController from './IpcController';
+import SampleRepository from './sample/SampleRepository';
+import SampleRepositoryImpl from './sample/SampleRepositoryImpl';
+
+// tslint:disable-next-line:no-var-requires
+const sqlite3 = require('sqlite3').verbose();
 
 let win: BrowserWindow | null;
+
+app.on('ready', async () => {
+    await initialize();
+    createWindow();
+});
+
+app.on('window-all-closed', () => {
+    app.quit();
+});
+
+async function initialize() {
+    const dbPath = path.join(app.getPath('documents'), 'ts-electron.db');
+    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE);
+
+    const sampleRepository: SampleRepository = new SampleRepositoryImpl(db);
+    await sampleRepository.init();
+
+    const ipcController = new IpcController(sampleRepository);
+
+    ipcMain.on('buttonChannel', async (event: any) => {
+        const count = await ipcController.button();
+        event.sender.send('buttonChannel-reply', count);
+    });
+}
 
 function createWindow() {
     win = new BrowserWindow({
@@ -16,19 +46,3 @@ function createWindow() {
         win = null;
     });
 }
-
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
-
-app.on('activate', () => {
-    if (win === null) {
-        createWindow();
-    }
-});
-
-ipcMain.on('buttonChannel', IpcController.button);

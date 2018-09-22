@@ -26,6 +26,14 @@ module.exports = [
                 '.js', // node_modulesのライブラリ読み込みに必要
             ]
         },
+        externals: [
+            function(context, request, callback) {
+                if (/^sqlite3$/.test(request)) {
+                    return callback(null, 'commonjs ' + request);
+                }
+                callback();
+            }
+        ],
         plugins: [
             new CleanWebpackPlugin(['./app/generated'])
         ],

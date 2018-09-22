@@ -5,7 +5,7 @@
     "postinstall": "electron-builder install-app-deps",
     "electron-rebuild": "electron-rebuild -f --module-dir app",
     "build": "webpack",
-    "start": "electron ./app",
+    "start": "electron --debug ./app",
     "tslint": "tslint --project . 'src/**/*.ts{,x}'",
     "tslint:fix": "tslint --project . --fix 'src/**/*.ts{,x}'",
     "test:unit": "mocha --require ts-node/register './src/**/*_spec.ts{,x}' --exclude './src/integration_test/**/*_spec.ts'",
