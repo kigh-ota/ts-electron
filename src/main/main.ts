@@ -1,11 +1,9 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
+import {Database, OPEN_CREATE, OPEN_READWRITE} from 'sqlite3';
 import IpcController from './IpcController';
 import SampleRepository from './sample/SampleRepository';
 import SampleRepositoryImpl from './sample/SampleRepositoryImpl';
-
-// tslint:disable-next-line:no-var-requires
-const sqlite3 = require('sqlite3').verbose();
 
 let win: BrowserWindow | null;
 
@@ -20,7 +18,7 @@ app.on('window-all-closed', () => {
 
 async function initialize() {
     const dbPath = path.join(app.getPath('documents'), 'ts-electron.db');
-    const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE);
+    const db = new Database(dbPath, OPEN_READWRITE | OPEN_CREATE);
 
     const sampleRepository: SampleRepository = new SampleRepositoryImpl(db);
     await sampleRepository.init();
