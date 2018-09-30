@@ -1,5 +1,5 @@
 import log from 'electron-log';
-import SampleRepository from './sample/SampleRepository';
+import SampleRepository from '../core/sample/SampleRepository';
 
 export default class IpcController {
     private sampleRepository: SampleRepository;

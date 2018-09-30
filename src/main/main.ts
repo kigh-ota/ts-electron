@@ -1,9 +1,9 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
 import {Database, OPEN_CREATE, OPEN_READWRITE} from 'sqlite3';
+import SampleRepository from '../core/sample/SampleRepository';
+import SampleRepositoryImpl from '../core/sample/SampleRepositoryImpl';
 import IpcController from './IpcController';
-import SampleRepository from './sample/SampleRepository';
-import SampleRepositoryImpl from './sample/SampleRepositoryImpl';
 
 let win: BrowserWindow | null;
 

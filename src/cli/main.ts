@@ -1,7 +1,7 @@
 import path from 'path';
 import {Database, OPEN_CREATE, OPEN_READWRITE} from 'sqlite3';
-import SampleRepository from '../main/sample/SampleRepository';
-import SampleRepositoryImpl from '../main/sample/SampleRepositoryImpl';
+import SampleRepository from '../core/sample/SampleRepository';
+import SampleRepositoryImpl from '../core/sample/SampleRepositoryImpl';
 
 async function initialize(): Promise<SampleRepository> {
     const dataDir = process.env.NODE_DATADIR;
@@ -24,5 +24,5 @@ async function addValueAndGetCount(sampleRepository: SampleRepository): Promise<
 initialize().then((sampleRepository) => {
     return addValueAndGetCount(sampleRepository);
 }).then((count) => {
-    process.stdout.write(String(count));
+    process.stdout.write(String(count) + '\n');
 });
