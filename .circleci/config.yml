@@ -21,6 +21,9 @@ jobs:
       - run:
           name: Run unit tests
           command: MOCHA_FILE="junit/unit-test-results.xml" npm run test:unit:ci
+      - run:
+          name: Run CLI tests
+          command: npm run test:cli
       - store_test_results:
           path: ~/ts-electron/junit
       - store_artifacts:

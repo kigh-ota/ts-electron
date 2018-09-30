@@ -58,5 +58,30 @@ module.exports = [
                 '.js', // node_modulesのライブラリ読み込みに必要
             ]
         }
+    },
+    {
+        target: 'node',
+        entry: './src/cli/main.ts',
+        mode: 'development',
+        devtool: 'source-map',
+        output: {
+            path: __dirname,
+            filename: 'cli.js'
+        },
+        module: TS_MODULE,
+        resolve: {
+            extensions: [
+                '.ts',
+                '.js', // node_modulesのライブラリ読み込みに必要
+            ]
+        },
+        externals: [
+            function(context, request, callback) {
+                if (/^sqlite3$/.test(request)) {
+                    return callback(null, 'commonjs ' + request);
+                }
+                callback();
+            }
+        ]
     }
 ];

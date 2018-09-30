@@ -5,3 +5,6 @@ node_modules
 npm-debug.log
 .nyc_output/
 coverage/
+/cli.js
+/cli.js.map
+**/ts-electron.db
