@@ -1,16 +1,15 @@
 import log from 'electron-log';
-import SampleRepository from '../core/sample/SampleRepository';
+import SampleService from '../core/sample/SampleService';
 
 export default class IpcController {
-    private sampleRepository: SampleRepository;
+    private sampleService: SampleService;
 
-    public constructor(sampleRepository: SampleRepository) {
-        this.sampleRepository = sampleRepository;
+    public constructor(sampleService: SampleService) {
+        this.sampleService = sampleService;
     }
 
     public async button(): Promise<number> {
         log.info('buttonChannel');
-        await this.sampleRepository.add(-1);
-        return await this.sampleRepository.count();
+        return await this.sampleService.addValueAndGetCount(-1);
     }
 }

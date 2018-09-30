@@ -16,9 +16,9 @@ app.on('window-all-closed', () => {
 
 async function initialize() {
     const dbPath = path.join(app.getPath('documents'), 'ts-electron.db');
-    const sampleRepository = await Initializer.initialize(dbPath);
+    const instances = await Initializer.initialize(dbPath);
 
-    const ipcController = new IpcController(sampleRepository);
+    const ipcController = new IpcController(instances.sampleService);
 
     ipcMain.on('buttonChannel', async (event: any) => {
         const count = await ipcController.button();
