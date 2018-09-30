@@ -19,17 +19,19 @@
 
 ## Files & Directories
 
-- src/
-    - main/**/*.tsx? (including tests) [M]
-    - renderer/**/*.tsx? (including tests) [R]
-    - integration_test/**/*.ts
-- app/
-    - generated/
-        - main.js [M]
-        - renderer.js [R]
-    - package.json
-    - index.html
-- package.json
+- `src/`
+    - `main/**/*.tsx?`: Electron Main (including tests)
+    - `renderer/**/*.tsx?`: Electron Renderer (including tests)
+    - `integration_test/**/*.ts`: Electron Integration Tests
+    - `cli/*.ts`: CLI
+    - `core/`: Domain Logic
+- `app/`: Electron App
+    - `generated/`
+        - `main.js`
+        - `renderer.js`
+    - `package.json`
+    - `index.html`
+- `package.json`
 
 ## TODO
 

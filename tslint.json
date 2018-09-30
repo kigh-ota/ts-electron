@@ -11,7 +11,8 @@
         "object-literal-sort-keys": false,
         "interface-name": false,
         "member-ordering": false,
-        "no-bitwise": false
+        "no-bitwise": false,
+        "no-unused-variable": true
     },
     "rulesDirectory": []
 }
