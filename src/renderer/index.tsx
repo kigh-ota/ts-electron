@@ -3,8 +3,11 @@ import ReactDom from 'react-dom';
 import Button from './Button';
 import Title from './Title';
 
-const container = document.getElementById('contents');
+// Disable drag & drop
+document.addEventListener('dragover', (event) => event.preventDefault());
+document.addEventListener('drop', (event) => event.preventDefault());
 
+const container = document.getElementById('contents');
 ReactDom.render(
     <div>
         <Title title="ts-electron" />
