@@ -1,4 +1,5 @@
-import log from 'electron-log';
+import fs from 'fs';
+import util from 'util';
 import SampleService from '../core/sample/SampleService';
 
 export default class IpcController {
@@ -9,7 +10,14 @@ export default class IpcController {
     }
 
     public async button(): Promise<number> {
-        log.info('buttonChannel');
         return await this.sampleService.addValueAndGetCount(-1);
+    }
+
+    public async fileDrop(filePath: string): Promise<string> {
+        // TODO throw if not a file
+        return util.promisify(fs.readFile)(filePath)
+        .then((data) => {
+            return data.toString();
+        });
     }
 }

@@ -1,4 +1,5 @@
-// import {ipcRenderer} from 'electron';
+import {ipcRenderer} from 'electron';
+import log from 'electron-log';
 import React from 'react';
 
 interface Props {}
@@ -12,6 +13,16 @@ export default class DropArea extends React.Component<Props, State> {
         super(props);
 
         this.state = {text: ''};
+    }
+
+    public componentWillMount() {
+        ipcRenderer.on('fileDropChannel-reply', (event: any, result: string) => {
+            this.setState({text: result});
+        });
+    }
+
+    public componentWillUnmount() {
+        ipcRenderer.removeAllListeners('fileDropChannel-reply');
     }
 
     public render() {
@@ -28,10 +39,10 @@ export default class DropArea extends React.Component<Props, State> {
 
     private handleDrop(e: React.DragEvent<HTMLElement>) {
         const fileList = e.dataTransfer.files;
-        const names = [];
-        for (const file of fileList) {
-            names.push(file.name);
+        if (fileList.length !== 1) {
+            log.info(`${fileList.length} files are dropped`);
+            return;
         }
-        this.setState({text: names.join(',')});
+        ipcRenderer.send('fileDropChannel', fileList[0].path);
     }
 }

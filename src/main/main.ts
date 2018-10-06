@@ -1,4 +1,5 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
+import log from 'electron-log';
 import path from 'path';
 import Initializer from '../core/Initializer';
 import IpcController from './IpcController';
@@ -21,8 +22,15 @@ async function initialize() {
     const ipcController = new IpcController(instances.sampleService);
 
     ipcMain.on('buttonChannel', async (event: any) => {
+        log.info('buttonChannel');
         const count = await ipcController.button();
         event.sender.send('buttonChannel-reply', count);
+    });
+
+    ipcMain.on('fileDropChannel', async (event: any, filePath: string) => {
+        log.info('fileDropChannel');
+        const result = await ipcController.fileDrop(filePath);
+        event.sender.send('fileDropChannel-reply', result);
     });
 }
 
