@@ -37,4 +37,3 @@
 
 - Debugging
 - Production Mode
-- Redux
