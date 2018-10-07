@@ -1,5 +1,4 @@
-import fs from 'fs';
-import util from 'util';
+import FileReader from '../core/FileReader';
 import SampleService from '../core/sample/SampleService';
 
 export default class IpcController {
@@ -9,15 +8,11 @@ export default class IpcController {
         this.sampleService = sampleService;
     }
 
-    public async button(): Promise<number> {
-        return await this.sampleService.addValueAndGetCount(-1);
+    public button(): Promise<number> {
+        return this.sampleService.addValueAndGetCount(-1);
     }
 
-    public async fileDrop(filePath: string): Promise<string> {
-        // TODO throw if not a file
-        return util.promisify(fs.readFile)(filePath)
-        .then((data) => {
-            return data.toString();
-        });
+    public fileDrop(filePath: string): Promise<string> {
+        return new FileReader().read(filePath);
     }
 }
