@@ -1,8 +1,7 @@
-import {app, BrowserWindow, ipcMain} from 'electron';
-import log from 'electron-log';
+import {app, BrowserWindow} from 'electron';
 import path from 'path';
 import Initializer from '../core/Initializer';
-import { ADD_SAMPLE_VALUE_AND_GET_COUNT, READ_FILE, reply } from '../ipc';
+import { ADD_SAMPLE_VALUE_AND_GET_COUNT, READ_FILE, registerIpc } from '../ipc';
 import IpcController from './IpcController';
 
 let win: BrowserWindow | null;
@@ -15,14 +14,6 @@ app.on('ready', async () => {
 app.on('window-all-closed', () => {
     app.quit();
 });
-
-function registerIpc<Req, Res>(channel: string, handler: (req: Req) => Res) {
-    ipcMain.on(channel, async (event: any, req: Req) => {
-        log.info(channel);
-        const res = await handler(req);
-        event.sender.send(reply(channel), res);
-    });
-}
 
 async function initialize() {
     const dbPath = path.join(app.getPath('documents'), 'ts-electron.db');
