@@ -1,5 +1,6 @@
 import {ipcRenderer} from 'electron';
 import React from 'react';
+import { ADD_SAMPLE_VALUE_AND_GET_COUNT, reply } from '../ipc';
 
 interface Props {
     label: string;
@@ -16,13 +17,13 @@ export default class Button extends React.Component<Props, State> {
     }
 
     public componentWillMount() {
-        ipcRenderer.on('buttonChannel-reply', (event: any, count: number) => {
+        ipcRenderer.on(reply(ADD_SAMPLE_VALUE_AND_GET_COUNT), (event: any, count: number) => {
             this.setState({count});
         });
     }
 
     public componentWillUnmount() {
-        ipcRenderer.removeAllListeners('buttonChannel-reply');
+        ipcRenderer.removeAllListeners(reply(ADD_SAMPLE_VALUE_AND_GET_COUNT));
     }
 
     public render() {
@@ -35,6 +36,6 @@ export default class Button extends React.Component<Props, State> {
     }
 
     private handleClick(e: React.MouseEvent<HTMLElement>) {
-        ipcRenderer.send('buttonChannel');
+        ipcRenderer.send(ADD_SAMPLE_VALUE_AND_GET_COUNT);
     }
 }

@@ -2,6 +2,7 @@ import {app, BrowserWindow, ipcMain} from 'electron';
 import log from 'electron-log';
 import path from 'path';
 import Initializer from '../core/Initializer';
+import { ADD_SAMPLE_VALUE_AND_GET_COUNT, READ_FILE, reply } from '../ipc';
 import IpcController from './IpcController';
 
 let win: BrowserWindow | null;
@@ -15,23 +16,22 @@ app.on('window-all-closed', () => {
     app.quit();
 });
 
+function registerIpc<Req, Res>(channel: string, handler: (req: Req) => Res) {
+    ipcMain.on(channel, async (event: any, req: Req) => {
+        log.info(channel);
+        const res = await handler(req);
+        event.sender.send(reply(channel), res);
+    });
+}
+
 async function initialize() {
     const dbPath = path.join(app.getPath('documents'), 'ts-electron.db');
     const instances = await Initializer.initialize(dbPath);
 
     const ipcController = new IpcController(instances.sampleService);
 
-    ipcMain.on('buttonChannel', async (event: any) => {
-        log.info('buttonChannel');
-        const count = await ipcController.button();
-        event.sender.send('buttonChannel-reply', count);
-    });
-
-    ipcMain.on('fileDropChannel', async (event: any, filePath: string) => {
-        log.info('fileDropChannel');
-        const result = await ipcController.fileDrop(filePath);
-        event.sender.send('fileDropChannel-reply', result);
-    });
+    registerIpc(ADD_SAMPLE_VALUE_AND_GET_COUNT, ipcController.addSampleValueAndGetCount.bind(ipcController));
+    registerIpc(READ_FILE, ipcController.readFile.bind(ipcController));
 }
 
 function createWindow() {

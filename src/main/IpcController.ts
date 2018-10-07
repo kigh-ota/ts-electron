@@ -8,11 +8,11 @@ export default class IpcController {
         this.sampleService = sampleService;
     }
 
-    public button(): Promise<number> {
+    public addSampleValueAndGetCount(): Promise<number> {
         return this.sampleService.addValueAndGetCount(-1);
     }
 
-    public fileDrop(filePath: string): Promise<string> {
+    public readFile(filePath: string): Promise<string> {
         return new FileReader().read(filePath);
     }
 }

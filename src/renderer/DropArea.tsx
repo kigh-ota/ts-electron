@@ -1,6 +1,7 @@
 import {ipcRenderer} from 'electron';
 import log from 'electron-log';
 import React from 'react';
+import { reply, READ_FILE } from '../ipc';
 
 interface Props {}
 
@@ -16,13 +17,13 @@ export default class DropArea extends React.Component<Props, State> {
     }
 
     public componentWillMount() {
-        ipcRenderer.on('fileDropChannel-reply', (event: any, result: string) => {
+        ipcRenderer.on(reply(READ_FILE), (event: any, result: string) => {
             this.setState({text: result});
         });
     }
 
     public componentWillUnmount() {
-        ipcRenderer.removeAllListeners('fileDropChannel-reply');
+        ipcRenderer.removeAllListeners(reply(READ_FILE));
     }
 
     public render() {
@@ -43,6 +44,6 @@ export default class DropArea extends React.Component<Props, State> {
             log.info(`${fileList.length} files are dropped`);
             return;
         }
-        ipcRenderer.send('fileDropChannel', fileList[0].path);
+        ipcRenderer.send(READ_FILE, fileList[0].path);
     }
 }
