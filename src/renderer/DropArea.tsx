@@ -1,7 +1,7 @@
 import {ipcRenderer} from 'electron';
 import log from 'electron-log';
 import React from 'react';
-import { reply, READ_FILE } from '../ipc';
+import { READ_FILE, reply } from '../ipc';
 
 interface Props {}
 
