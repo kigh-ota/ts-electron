@@ -1,6 +1,9 @@
 {
     "defaultSeverity": "error",
-    "extends": "tslint:recommended",
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-prettier"
+    ],
     "jsRules": {},
     "rules": {
         "quotemark": [
@@ -13,7 +16,10 @@
         "member-ordering": false,
         "no-bitwise": false,
         "no-unused-variable": true,
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "prettier": true
     },
-    "rulesDirectory": []
+    "rulesDirectory": [
+        "tslint-plugin-prettier"
+    ]
 }
