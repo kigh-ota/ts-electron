@@ -13,8 +13,8 @@ jobs:
           name: Install npm packages
           command: npm ci
       - run:
-          name: Check code (tslint)
-          command: npm run tslint
+          name: Check code
+          command: npm run lint
       - run:
           name: Check build is successful
           command: npm run build
