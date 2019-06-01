@@ -37,7 +37,7 @@
     "@types/uuid": "3.4.4",
     "@types/webdriverio": "4.10.3",
     "babel-core": "6.26.3",
-    "babel-loader": "8.0.5",
+    "babel-loader": "8.0.6",
     "clean-webpack-plugin": "0.1.19",
     "electron": "3.0.0",
     "electron-builder": "20.26.1",
