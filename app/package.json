@@ -8,6 +8,6 @@
     "email": "ota.kaiichiro@gmail.com"
   },
   "dependencies": {
-    "sqlite3": "4.0.0"
+    "sqlite3": "4.1.1"
   }
 }
